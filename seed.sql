@@ -2,29 +2,26 @@ use empTracker_DB;
 
 INSERT INTO department
   (name)
-
 VALUES
   ("sales"),
   ("engineering"),
-  ('finance'),
+  ("finance"),
   ("legal");
 
 INSERT INTO role
   (title, salary, department_id)
-
 VALUES
-  ("Salesman", 50000, 1),
-  ("Sales Manager", 60000, 1),
-  ("Software Engineer", 60000, 2),
-  ("Electrical Engineer", 60000, 2),
-  ("Accountant", 60000, 3,
-  ("Collection Manager", 60000, 3),
-  ("Lawyer", 60000, 4),
-  ("Paralegal", 60000, 4);
+  ("Salesman", 70000.01, 1),
+  ("Sales Manager", 80000.66, 1),
+  ("Software Engineer", 85000.65, 2),
+  ("Electrical Engineer", 75000.78, 2),
+  ("Accountant", 65000.45, 3),
+  ("Collection Manager", 55000.40, 3),
+  ("Lawyer", 95000.20, 4),
+  ("Paralegal", 58000.33, 4);
 
 INSERT INTO employee
   (first_name, last_name, role_id)
-
 VALUES
   ("John", "Doe", 1),
   ("Mike", "Chan", 2),
