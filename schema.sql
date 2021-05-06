@@ -3,9 +3,9 @@ CREATE DATABASE empTracker_DB;
 
 USE empTracker_DB;
 
-CREATE TABLE deprtment(
+CREATE TABLE department(
   id INT NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(30) NOT NULL,
+  name VARCHAR(30) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -14,15 +14,16 @@ CREATE TABLE role(
   title VARCHAR(30) NOT NULL,
   salary DECIMAL(5,2) NOT NULL,
   department_id INT NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  INDEX dep_ind (department_id),
+  CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
 CREATE TABLE employee(
-  id INT NOT NULL AUTO_INCREMENT,
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   role_id INT NOT NULL,
-  manager_id INT NOT NULL,
-  highest_bid INT NOT NULL,
-  PRIMARY KEY (id)
+  INDEX role_ind (role_id),
+  CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 );

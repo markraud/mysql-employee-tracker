@@ -3,6 +3,12 @@ npm init -y
 npm i mysql
 npm i inquirer
 
-build db
-start inquirer
+build db schema
+inquirer
+seed.sql file
+join
 figure out console.table
+
+
+define foreign key
+constraint
