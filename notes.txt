@@ -3,9 +3,8 @@ npm init -y
 npm i mysql
 npm i inquirer
 
-build db schema
 inquirer
-seed.sql file
+
 join
 figure out console.table
 
