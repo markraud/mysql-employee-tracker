@@ -65,12 +65,12 @@ const addDepartment = () => {
         },
         (err, res) => {
           if (err) throw err;
-          console.log(`${answer.departmentName} department inserted!\n`);
         }
         //you might want to put a displayDepartment here
       )
-    }
-    )
+      console.log(`${answer.departmentName} department inserted!\n`);
+      start();
+    })
 };
 
 const addRole = () => {
@@ -103,16 +103,87 @@ const addRole = () => {
         },
         (err, res) => {
           if (err) throw err;
-          console.log(`${answer.roleName} role inserted!\n`);
         }
-        //you might want to put a displayDepartment here
       )
-    }
-    )
+      console.log(`${answer.roleName} role inserted!\n`);
+      start();
+    })
 }
 
 const addEmployee = () => {
-  console.log('inside addEmployee function');
+  console.log('Inserting a new employee...\n');
+  prompt([
+    {
+      name: 'first_name',
+      type: 'input',
+      message: 'Please enter new employee\'s first name.'
+    },
+    {
+      name: 'last_name',
+      type: 'input',
+      message: 'Please enter new employee\'s last name.'
+    },
+    {
+      name: 'role',
+      type: 'list',
+      message: 'Please select new employee\'s role ID.',
+      choices: [
+        'Salesman',
+        'Sales Assistant',
+        'Software Engineer',
+        'Electrical Engineer',
+        'Accountant',
+        'Collection Agent',
+        'Lawyer',
+        'Paralegal'
+      ]
+    },
+
+  ])
+    .then((answer) => {
+      console.log(answer.role);
+      // find role_id based on role name - switch case
+      let roleId;
+      switch (answer.role) {
+        case 'Salesman':
+          roleId = 1;
+          break;
+        case 'Sales Assistant':
+          roleId = 2;
+          break;
+        case 'Software Engineer':
+          roleId = 3;
+          break;
+        case 'Electrical Engineer':
+          roleId = 4;
+          break;
+        case 'Accountant':
+          roleId = 5;
+          break;
+        case 'Collection Agent':
+          roleId = 6;
+          break;
+        case 'Lawyer':
+          roleId = 7;
+          break;
+        default:
+          roleId = 8;
+          break;
+      }
+      const query = connection.query(
+        'INSERT INTO employee SET ?',
+        {
+          first_name: answer.first_name,
+          last_name: answer.last_name,
+          role_id: roleId
+        },
+        (err, res) => {
+          if (err) throw err;
+        }
+      )
+      console.log(`${answer.roleName} employee inserted!\n`);
+      start();
+    })
 }
 
 const viewDepartment = () => {
