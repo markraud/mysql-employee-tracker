@@ -50,7 +50,7 @@ const start = () => {
 
 
 const addDepartment = () => {
-  console.log('inside addDepartment function');
+  console.log('Inserting a new department...\n');
   prompt({
     name: 'departmentName',
     type: 'input',
@@ -58,11 +58,38 @@ const addDepartment = () => {
   })
     .then((answer) => {
       console.log(answer);
-      // let query = 
-      // `INSERT INTO department SET ?', `
-      // connection.query()
-    })
-}
+      const query = connection.query(
+        'INSERT INTO department SET ?',
+        {
+          name: answer.departmentName,
+        },
+        (err, res) => {
+          if (err) throw err;
+          console.log(`${answer} department inserted!\n`);
+        })
+    }
+    )
+};
+
+
+
+// use this as an example for addDepartment insert above
+// const createProduct = () => {
+//   console.log('Inserting a new product...\n');
+//   const query = connection.query(
+//     'INSERT INTO products SET ?',
+//     {
+//       flavor: 'Rocky Road',
+//       price: 3.0,
+//       quantity: 50,
+//     },
+//     (err, res) => {
+//       if (err) throw err;
+//       console.log(`${res.affectedRows} product inserted!\n`);
+//       // Call updateProduct AFTER the INSERT completes
+//       updateProduct();
+//     }
+//   );
 
 const addRole = () => {
   console.log('inside addRole function');

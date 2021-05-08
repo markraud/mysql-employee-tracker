@@ -5,7 +5,7 @@ USE empTracker_DB;
 
 CREATE TABLE department(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  department_name VARCHAR(30) UNIQUE NOT NULL
+  name VARCHAR(30) UNIQUE NOT NULL
 );
 
 CREATE TABLE role(
