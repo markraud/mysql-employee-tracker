@@ -1,7 +1,7 @@
 use empTracker_DB;
 
 INSERT INTO department
-  (department_name)
+  (name)
 VALUES
   ("Sales"),
   ("Engineering"),

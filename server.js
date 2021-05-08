@@ -57,7 +57,7 @@ const addDepartment = () => {
     message: 'Please enter new department name.'
   })
     .then((answer) => {
-      console.log(answer);
+      // console.log(answer);
       const query = connection.query(
         'INSERT INTO department SET ?',
         {
@@ -65,34 +65,50 @@ const addDepartment = () => {
         },
         (err, res) => {
           if (err) throw err;
-          console.log(`${answer} department inserted!\n`);
-        })
+          console.log(`${answer.departmentName} department inserted!\n`);
+        }
+        //you might want to put a displayDepartment here
+      )
     }
     )
 };
 
-
-
-// use this as an example for addDepartment insert above
-// const createProduct = () => {
-//   console.log('Inserting a new product...\n');
-//   const query = connection.query(
-//     'INSERT INTO products SET ?',
-//     {
-//       flavor: 'Rocky Road',
-//       price: 3.0,
-//       quantity: 50,
-//     },
-//     (err, res) => {
-//       if (err) throw err;
-//       console.log(`${res.affectedRows} product inserted!\n`);
-//       // Call updateProduct AFTER the INSERT completes
-//       updateProduct();
-//     }
-//   );
-
 const addRole = () => {
-  console.log('inside addRole function');
+  console.log('Inserting a new role...\n');
+  prompt([
+    {
+      name: 'title',
+      type: 'input',
+      message: 'Please enter new role name.'
+    },
+    {
+      name: 'salary',
+      type: 'input',
+      message: 'Please enter a salary for the role'
+    },
+    {
+      name: 'deptId',
+      type: 'input',
+      message: 'Please enter a department ID'
+    },
+  ])
+    .then((answer) => {
+      console.log(answer);
+      const query = connection.query(
+        'INSERT INTO role SET ?',
+        {
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.deptId
+        },
+        (err, res) => {
+          if (err) throw err;
+          console.log(`${answer.roleName} role inserted!\n`);
+        }
+        //you might want to put a displayDepartment here
+      )
+    }
+    )
 }
 
 const addEmployee = () => {
