@@ -1,43 +1,46 @@
 const mysql = require('mysql');
-const inquirer = require('inquirer');
+const { prompt } = require('inquirer');
 const connection = require('./db/connection');
+const cTable = require('console.table');
+
+
 
 
 const start = () => {
-  inquirer.prompt({
+  prompt({
     name: "initialChoice",
     type: "list",
     message: "Would you like to do?",
-    choices: ["Add a department",
-      "Add a role",
-      "Add an employee",
-      "View a department",
-      "View a role",
-      "View an employee",
-      "Update employee's role"],
+    choices:
+      ["Add a department",
+        "Add a role",
+        "Add an employee",
+        "View a department",
+        "View a role",
+        "View an employee",
+        "Update employee's role"],
   }).then((answer) => {
     switch (answer.initialChoice) {
       case "Add a department":
-        console.log("Add a department");
-        //addDepartment();  
+        addDepartment();
         break;
       case "Add a role":
-        //addRole();
+        addRole();
         break;
       case "Add an employee":
-        //addEmployee();
+        addEmployee();
         break;
       case "View a department":
-        //viewDepartment();
+        viewDepartment();
         break;
       case "View a role":
-        //viewRole();
+        viewRole();
         break;
       case "View an employee":
-        //viewEmployee();
+        viewEmployee();
         break;
       case "Update employee's role":
-        //updateEmpRole();
+        updateEmpRole();
         break;
 
     }
@@ -46,6 +49,45 @@ const start = () => {
 };
 
 
+const addDepartment = () => {
+  console.log('inside addDepartment function');
+  prompt({
+    name: 'departmentName',
+    type: 'input',
+    message: 'Please enter new department name.'
+  })
+    .then((answer) => {
+      console.log(answer);
+      // let query = 
+      // `INSERT INTO department SET ?', `
+      // connection.query()
+    })
+}
 
-// start();
+const addRole = () => {
+  console.log('inside addRole function');
+}
+
+const addEmployee = () => {
+  console.log('inside addEmployee function');
+}
+
+const viewDepartment = () => {
+  console.log('inside viewDepartment function');
+}
+
+const viewRole = () => {
+  console.log('inside viewRole function');
+}
+
+const viewEmployee = () => {
+  console.log('inside viewEmployee function');
+}
+
+const updateEmpRole = () => {
+  console.log('inside updateEmpRole function');
+}
+
+
+start();
 
