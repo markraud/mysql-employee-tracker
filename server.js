@@ -87,25 +87,46 @@ const addRole = () => {
       message: 'Please enter a salary for the role'
     },
     {
-      name: 'deptId',
-      type: 'input',
-      message: 'Please enter a department ID'
+      name: 'dept',
+      type: 'list',
+      message: 'Please select the department',
+      choices: [
+        'Sales',
+        'Engineering',
+        'Finanace',
+        'Legal'
+      ]
     },
   ])
     .then((answer) => {
       console.log(answer);
+      let deptId = '';
+      switch (answer.dept) {
+        case 'Sales':
+          deptId = 1;
+          break;
+        case 'Engineering':
+          deptId = 2;
+          break;
+        case 'Finance':
+          deptId = 3;
+          break;
+        default:
+          deptId = 4;
+          break;
+      }
       const query = connection.query(
         'INSERT INTO role SET ?',
         {
           title: answer.title,
           salary: answer.salary,
-          department_id: answer.deptId
+          department_id: deptId
         },
         (err, res) => {
           if (err) throw err;
         }
       )
-      console.log(`${answer.roleName} role inserted!\n`);
+      console.log(`${answer.title} role inserted!\n`);
       start();
     })
 }
@@ -143,7 +164,7 @@ const addEmployee = () => {
     .then((answer) => {
       console.log(answer.role);
       // find role_id based on role name - switch case
-      let roleId;
+      let roleId = '';
       switch (answer.role) {
         case 'Salesman':
           roleId = 1;
