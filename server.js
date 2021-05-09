@@ -242,9 +242,14 @@ const viewEmployees = () => {
 const updateEmpRole = () => {
   prompt([
     {
-      name: 'id_number',
+      name: 'first_name',
       type: 'input',
-      message: 'Please enter the employee\'s id number.\n'
+      message: 'Please enter the employee\'s first name.\n'
+    },
+    {
+      name: 'last_name',
+      type: 'input',
+      message: 'Please enter the employee\'s last name.\n'
     },
     {
       name: 'role',
@@ -263,9 +268,7 @@ const updateEmpRole = () => {
     },
   ])
     .then((answer) => {
-      // console.log(answer);
-      console.log(answer.id_number);
-      // find role_id based on role name - switch case
+      // find role_id based on role name 
       let newRoleId = '';
       switch (answer.role) {
         case 'Salesman':
@@ -295,9 +298,9 @@ const updateEmpRole = () => {
       }
       console.log(newRoleId);
       console.log('Updating an employee\'s role');
-      let update = `UPDATE employee SET role_id = ? WHERE employee.id = ?`
-      // let update = `UPDATE employee SET role_id = ? WHERE employee.id = ?, [5,7]`
-      connection.query(update, [newRoleId, answer.id_number], (err, res) => {
+      let update = `UPDATE employee SET role_id = ? WHERE employee.first_name = ? AND employee.last_name = ?`
+      // let update = `UPDATE employee SET role_id = ? WHERE employee.id = ?`
+      connection.query(update, [newRoleId, answer.first_name, answer.last_name], (err, res) => {
         console.log(`Role has been updated.`);
       })
       start();
