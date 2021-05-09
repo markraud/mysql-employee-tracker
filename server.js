@@ -212,8 +212,6 @@ const addEmployee = () => {
 
 const viewDepartments = () => {
   console.log(`Viewing all departments\n`);
-  // let query = 'SELECT department.id, department.name FROM department LEFT JOIN role on role.department_id = department.id '
-  // query += 'LEFT JOIN employee on employee.role_id = role.id GROUP BY department.id, department.name ORDER BY department.id'
   connection.query('SELECT * FROM department order by id', (err, res) => {
     console.table(res);
     start();
