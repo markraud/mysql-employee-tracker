@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const { prompt } = require('inquirer');
 const connection = require('./db/connection');
 const cTable = require('console.table');
+const { end } = require('./db/connection');
 
 
 
@@ -18,7 +19,8 @@ const start = () => {
         "View a department",
         "View a role",
         "View an employee",
-        "Update employee's role"],
+        "Update employee's role",
+        "I'm done...Quit."],
   }).then((answer) => {
     switch (answer.initialChoice) {
       case "Add a department":
@@ -42,7 +44,8 @@ const start = () => {
       case "Update employee's role":
         updateEmpRole();
         break;
-
+      default:
+        exit();
     }
 
   });
@@ -202,13 +205,15 @@ const addEmployee = () => {
           if (err) throw err;
         }
       )
-      console.log(`${answer.roleName} employee inserted!\n`);
+      console.log(`${answer.first_name} ${answer.last_name} inserted!\n`);
       start();
     })
 }
 
 const viewDepartment = () => {
   console.log('inside viewDepartment function');
+  connection.query(`SELECT `)
+
 }
 
 const viewRole = () => {
@@ -221,6 +226,10 @@ const viewEmployee = () => {
 
 const updateEmpRole = () => {
   console.log('inside updateEmpRole function');
+}
+
+const exit = () => {
+  process.exit();
 }
 
 
