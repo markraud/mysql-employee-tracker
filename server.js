@@ -16,9 +16,9 @@ const start = () => {
       ["Add a department",
         "Add a role",
         "Add an employee",
-        "View a department",
-        "View a role",
-        "View an employee",
+        "View a list of all departments",
+        "View a list of all roles",
+        "View a list of all employees",
         "Update employee's role",
         "I'm done...Quit."],
   }).then((answer) => {
@@ -32,14 +32,14 @@ const start = () => {
       case "Add an employee":
         addEmployee();
         break;
-      case "View a department":
-        viewDepartment();
+      case "View a list of all departments":
+        viewDepartments();
         break;
-      case "View a role":
-        viewRole();
+      case "View a list of all roles":
+        viewRoles();
         break;
-      case "View an employee":
-        viewEmployee();
+      case "View a list of all employees":
+        viewEmployees();
         break;
       case "Update employee's role":
         updateEmpRole();
@@ -210,22 +210,44 @@ const addEmployee = () => {
     })
 }
 
-const viewDepartment = () => {
-  console.log('inside viewDepartment function');
-  connection.query(`SELECT `)
-
+const viewDepartments = () => {
+  console.log(`Viewing all departments\n`);
+  // let query = 'SELECT department.id, department.name FROM department LEFT JOIN role on role.department_id = department.id '
+  // query += 'LEFT JOIN employee on employee.role_id = role.id GROUP BY department.id, department.name ORDER BY department.id'
+  connection.query('SELECT * FROM department order by id', (err, res) => {
+    console.table(res);
+    start();
+  })
 }
 
-const viewRole = () => {
-  console.log('inside viewRole function');
+const viewRoles = () => {
+  console.log(`Viewing all roles\n`);
+  connection.query(`SELECT id, title, salary FROM role ORDER BY id`, (err, res) => {
+    console.table(res);
+    start();
+  })
 }
 
-const viewEmployee = () => {
-  console.log('inside viewEmployee function');
+const viewEmployees = () => {
+  console.log(`Viewing all employees\n`);
+  let query = `SELECT employee.id, employee.first_name,  employee.last_name, role.title, `
+  query += `department.name, role.salary FROM employee, department, role `
+  query += `WHERE department.id = role.department_id AND role.id = employee.role_id ORDER BY employee.id`
+  connection.query(query, (err, res) => {
+    console.table(res);
+    start();
+  })
 }
 
 const updateEmpRole = () => {
-  console.log('inside updateEmpRole function');
+  console.log('Updating an employee\'s role');
+  let update = `UPDATE employee SET role_id = ? WHERE role.id = ?`
+  connection.query(update, (err, res) => {
+    // [ro]
+
+  })
+
+
 }
 
 const exit = () => {
