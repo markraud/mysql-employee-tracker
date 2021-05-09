@@ -240,15 +240,69 @@ const viewEmployees = () => {
 }
 
 const updateEmpRole = () => {
-  console.log('Updating an employee\'s role');
-  let update = `UPDATE employee SET role_id = ? WHERE role.id = ?`
-  connection.query(update, (err, res) => {
-    // [ro]
-
-  })
-
-
-}
+  prompt([
+    {
+      name: 'id_number',
+      type: 'input',
+      message: 'Please enter the employee\'s id number.\n'
+    },
+    {
+      name: 'role',
+      type: 'list',
+      message: 'Please select the employee\'s new role.',
+      choices: [
+        'Salesman',
+        'Sales Assistant',
+        'Software Engineer',
+        'Electrical Engineer',
+        'Accountant',
+        'Collection Agent',
+        'Lawyer',
+        'Paralegal'
+      ]
+    },
+  ])
+    .then((answer) => {
+      // console.log(answer);
+      console.log(answer.id_number);
+      // find role_id based on role name - switch case
+      let newRoleId = '';
+      switch (answer.role) {
+        case 'Salesman':
+          newRoleId = 1;
+          break;
+        case 'Sales Assistant':
+          newRoleId = 2;
+          break;
+        case 'Software Engineer':
+          newRoleId = 3;
+          break;
+        case 'Electrical Engineer':
+          newRoleId = 4;
+          break;
+        case 'Accountant':
+          newRoleId = 5;
+          break;
+        case 'Collection Agent':
+          newRoleId = 6;
+          break;
+        case 'Lawyer':
+          newRoleId = 7;
+          break;
+        default:
+          newRoleId = 8;
+          break;
+      }
+      console.log(newRoleId);
+      console.log('Updating an employee\'s role');
+      let update = `UPDATE employee SET role_id = ? WHERE employee.id = ?`
+      // let update = `UPDATE employee SET role_id = ? WHERE employee.id = ?, [5,7]`
+      connection.query(update, [newRoleId, answer.id_number], (err, res) => {
+        console.log(`Role has been updated.`);
+      })
+      start();
+    })
+};
 
 const exit = () => {
   process.exit();

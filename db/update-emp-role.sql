@@ -1,1 +1,0 @@
-UPDATE role SET ? where 
